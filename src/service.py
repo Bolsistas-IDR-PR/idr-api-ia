@@ -7,7 +7,6 @@ import os
 
 class Service:
 
-
     # load file pdff  
     async def load_file_pdf(self, file_name : str):
         
@@ -70,7 +69,7 @@ class Service:
         return np.array(query_embedding)
     
 
-
+    # cosine similarity
     def cosine_similarity(self, embedding1, embedding2):
         """
             Calcula a similaridade de cosseno entre dois vetores de embedding.
@@ -111,6 +110,7 @@ class Service:
             return list_of_document
         return list_of_document[:top_k]
 
+    
 
 
 # classe document

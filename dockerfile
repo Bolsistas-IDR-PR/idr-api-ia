@@ -1,5 +1,5 @@
 # Use a imagem oficial do Python 3.10.13
-FROM python:3.11-alpine
+FROM python:3.10.13
 
 # Defina o diretório de trabalho dentro do container
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Defina o comando para rodar a aplicação usando Uvicorn
-CMD ["uvicorn", "myapi:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src/index:app", "--host", "0.0.0.0", "--port", "8000"]

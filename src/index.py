@@ -32,7 +32,7 @@ class TopResponse(BaseModel):
     similarity: float
 
 class ReponseDocument(BaseModel):
-    document: List[TopResponse]
+    data: List[TopResponse]
     query: str      
 
 #upload de arquivos pdf
@@ -56,7 +56,7 @@ async def get_document(request : Query):
         pdf_pages = await service.load_file_pdf(request.file_name)
         document_list = await service.read_pdf_file_and_split_document(pdf_pages, chunk_size=500)
         documents_response =  await service.most_similar(query=request.query, document_list=document_list, top_k=request.top_k, model=request.model)
-        return {  "document" : documents_response, 'query' : request.query }
+        return {  "data" : documents_response, 'query' : request.query }
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))    
 
