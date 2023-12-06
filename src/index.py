@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ValidationError, Field
+from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os
 from typing import List
@@ -10,6 +11,18 @@ import fitz
 from service import Service
 
 app  =  FastAPI()
+
+# Configuração do CORS
+origins = ["*"]  # Permitir CORS para qualquer origem
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class Query(BaseModel):
     query: str = Field(..., title="Query", description="Query para busca de documentos")
@@ -111,7 +124,7 @@ async def create_upload_file(file: UploadFile = File(...)):
    
 
 #retorno do status code
-@app.get('/status', status_code=200, response_model=ResponseStatusCode, responses={500 : {'model' : ResponseStatusCode}})
+@app.get('/status/', status_code=200, response_model=ResponseStatusCode, responses={500 : {'model' : ResponseStatusCode}})
 async def status(): 
     try:
         return {"msg" : "API em execução", "status_code": 200}
