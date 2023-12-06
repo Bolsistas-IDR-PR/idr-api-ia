@@ -66,14 +66,11 @@ class ResponseStatusCode(BaseModel):
     msg : str
     status_code : int
 
-class ResponseUploadError(BaseModel):
-    msg : str
-
 
 app.mount("/images", StaticFiles(directory="../images"), name="images")
 
 #upload de arquivos pdf
-@app.post("/uploadfile/", status_code=201, response_model=ResponseUpload, responses={400 : {'model' : ResponseUploadError}})
+@app.post("/uploadfile/", status_code=201, response_model=ResponseUpload)
 async def create_upload_file(file: UploadFile = File(...)):
     
     # Verificar o tamanho do arquivo
