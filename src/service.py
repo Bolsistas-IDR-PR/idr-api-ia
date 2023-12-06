@@ -87,7 +87,10 @@ class Service:
 
         return similarity
     
+
     
+
+
     async def most_similar(self, query, document_list : list, model="paraphrase-MiniLM-L6-v2", top_k = 5):
 
         """
@@ -109,8 +112,9 @@ class Service:
         if top_k > len(list_of_document):
             return list_of_document
         return list_of_document[:top_k]
-
     
+
+
 
 
 # classe document
