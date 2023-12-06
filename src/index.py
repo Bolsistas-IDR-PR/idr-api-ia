@@ -59,7 +59,7 @@ class TopResponse(BaseModel):
     similarity: float
 
 class ReponseDocument(BaseModel):
-    data: List[TopResponse]
+    document: List[TopResponse]
     query: str     
 
 class ResponseStatusCode(BaseModel):
@@ -80,7 +80,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         # tratar esse erro dentro do sistema
         raise HTTPException(status_code=400, detail="O tamanho do arquivo não pode ser maior que 500KB")
         
-    # Salvar o arquivo na pasta data com caminho absoluto
+    # Salvar o arquivo na pasta document com caminho absoluto
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, '../document', file.filename)
 
@@ -132,7 +132,7 @@ async def status():
         raise HTTPException(status_code=500, detail="Servidor offline")  
 
 
-#generate document response with metadata and content_text
+#generate document response with metadocument and content_text
 @app.post("/answer/", status_code=200, response_model=ReponseDocument)
 async def get_document(request : Query):
     try:
@@ -140,7 +140,7 @@ async def get_document(request : Query):
         pdf_pages = await service.load_file_pdf(request.file_name)
         document_list = await service.read_pdf_file_and_split_document(pdf_pages, chunk_size=500)
         documents_response =  await service.most_similar(query=request.query, document_list=document_list, top_k=request.top_k, model=request.model)
-        return {  "data" : documents_response, 'query' : request.query }
+        return {  "document" : documents_response, 'query' : request.query }
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))    
 
