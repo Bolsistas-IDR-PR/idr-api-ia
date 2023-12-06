@@ -13,7 +13,10 @@ from service import Service
 app  =  FastAPI()
 
 # Configuração do CORS
-origins = ["*"]  # Permitir CORS para qualquer origem
+origins = [
+    "https://*", 
+    "http://*"
+]  # Permitir CORS para qualquer origem
 
 app.add_middleware(
     CORSMiddleware,
