@@ -8,7 +8,7 @@ from typing import List
 import math
 import fitz
 
-from service import Service
+from src.service import Service
 
 app  =  FastAPI()
 
