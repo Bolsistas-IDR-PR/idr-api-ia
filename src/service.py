@@ -17,7 +17,7 @@ class Service:
         # search a file path ../document
         # if document not exist create a new document path
         # TODO 
-        file_path =  os.path.join(current_dir, '../document', f"{file_name}.pdf")
+        file_path =  os.path.join(current_dir, 'document', f"{file_name}.pdf")
         loader = PyPDFLoader(file_path)
         pages =  loader.load_and_split()
 

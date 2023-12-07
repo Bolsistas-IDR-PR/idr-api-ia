@@ -67,7 +67,7 @@ class ResponseStatusCode(BaseModel):
     status_code : int
 
 
-app.mount("/images", StaticFiles(directory="../images"), name="images")
+app.mount("/images", StaticFiles(directory="images"), name="images")
 
 #upload de arquivos pdf
 @app.post("/uploadfile/", status_code=201, response_model=ResponseUpload)
@@ -82,7 +82,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         
     # Salvar o arquivo na pasta document com caminho absoluto
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, '../document', file.filename)
+    file_path = os.path.join(current_dir, 'document', file.filename)
 
     #verificar se o arquivo existe
     if os.path.exists(file_path): 
@@ -104,7 +104,7 @@ async def create_upload_file(file: UploadFile = File(...)):
             base = os.path.splitext(file.filename)[0]
 
             # Ajustar o caminho para salvar as imagens
-            images_dir = os.path.join(current_dir, '../images')
+            images_dir = os.path.join(current_dir, 'images')
             if not os.path.exists(images_dir):
                 os.makedirs(images_dir)
             image_path = os.path.join(images_dir, f"{base}.png")
