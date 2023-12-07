@@ -13,11 +13,10 @@ class Service:
         """ @params fiile_path: str 
             @return pages: list of str and dict
         """
-        current_dir = os.path.dirname(os.path.abspath(__file__))
         # search a file path ../document
         # if document not exist create a new document path
         # TODO 
-        file_path =  os.path.join(current_dir, '../document', f"{file_name}.pdf")
+        file_path =  os.path.join('document', f"{file_name}.pdf")
         loader = PyPDFLoader(file_path)
         pages =  loader.load_and_split()
 
